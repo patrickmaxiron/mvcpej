@@ -4,7 +4,7 @@ namespace mvcprj.model
     {
         public int Id { get; set; } 
 
-        public string Name { get; set; }
+        public string Name { get; set; } = "Tast";
 
         public int HitPoints { get; set; } = 100;
 

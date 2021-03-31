@@ -17,10 +17,10 @@ namespace mvcprj.Controllers
             }
         };
 
-        
-        public Character Get()
+        [HttpGet("{id}")]
+        public Character Get(int id)
         {
-            return characters[1];
+            return characters[id];
         }
 
         [HttpGet]
