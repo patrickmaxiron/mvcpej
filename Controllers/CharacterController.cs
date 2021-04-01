@@ -30,5 +30,12 @@ namespace mvcprj.Controllers
             return characters;
         }
 
+        [HttpPost]
+        public List<Character> AddCharacter(Character newCharacter)
+        {
+            characters.Add(newCharacter);
+            return characters;
+        }
+
     }
 }
