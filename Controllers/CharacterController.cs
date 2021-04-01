@@ -39,5 +39,11 @@ namespace mvcprj.Controllers
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
 
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>>  Update(UpdateCharacterDto updateCharacterDto)
+        {
+            return Ok(await _characterService.Update(updateCharacterDto));
+        }
+
     }
 }

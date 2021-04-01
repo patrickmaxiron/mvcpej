@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,8 +7,7 @@ using mvcprj.Dto.Character;
 using mvcprj.model;
 
 
-//dto
-//linq
+
 //update
 
 namespace mvcprj.Services
@@ -15,7 +15,7 @@ namespace mvcprj.Services
     public class CharacterService : ICharacterService
     {
 
-        private List<Character> characters = new List<Character>{
+        private static List<Character> characters = new List<Character>{
             new Character(),
             new Character{
                 Id = 1,
@@ -36,9 +36,9 @@ namespace mvcprj.Services
 
             Character c = _mapper.Map<Character>(newCharacter);
 
-            int Id = characters.Max(c=>c.Id);
+            int Id = characters.Max(c => c.Id);
 
-            c.Id = Id;
+            c.Id = Id + 1;
 
             characters.Add(c);
 
@@ -52,7 +52,7 @@ namespace mvcprj.Services
 
             Character c = characters.FirstOrDefault(c => c.Id == Id);
 
-            serviceResponse.Data =  _mapper.Map<GetCharacterDto>(c);
+            serviceResponse.Data = _mapper.Map<GetCharacterDto>(c);
             return serviceResponse;
         }
 
@@ -63,6 +63,34 @@ namespace mvcprj.Services
             serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
 
             return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetCharacterDto>> Update(UpdateCharacterDto updateCharacterDto)
+        {
+            ServiceResponse<GetCharacterDto> serviceResponse = new ServiceResponse<GetCharacterDto>();
+
+            try
+            {
+                Character c = characters.FirstOrDefault(c => c.Id == updateCharacterDto.Id);
+
+                c.Name = updateCharacterDto.Name;
+                c.Strength = updateCharacterDto.Strength;
+                c.Intelligence = updateCharacterDto.Strength;
+                c.HitPoints = updateCharacterDto.HitPoints;
+                c.Defense = updateCharacterDto.Defense;
+                c.Class = updateCharacterDto.Class;
+
+                serviceResponse.Data = _mapper.Map<GetCharacterDto>(c);
+                return serviceResponse;
+            }catch(Exception e){
+                serviceResponse.Success=false;
+                serviceResponse.Message = e.Message;
+                return serviceResponse;
+            }
+
+
+
+
         }
     }
 }

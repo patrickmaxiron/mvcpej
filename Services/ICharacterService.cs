@@ -13,5 +13,8 @@ namespace mvcprj.Services
         public  Task<ServiceResponse<List<GetCharacterDto>>> GetAll();
 
         public  Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter);
+
+
+        public  Task<ServiceResponse<GetCharacterDto>> Update(UpdateCharacterDto updateCharacterDto);
     }
 }
