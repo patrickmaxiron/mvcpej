@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using mvcprj.model;
 
 namespace mvcprj.Services
 {
     public interface ICharacterService
     {
-        public Character Get(int id);
+        public  Task<Character> Get(int id);
 
 
-        public List<Character> GetAll();
+        public  Task<List<Character>> GetAll();
 
-        public List<Character> AddCharacter(Character newCharacter);
+        public  Task<List<Character>> AddCharacter(Character newCharacter);
     }
 }

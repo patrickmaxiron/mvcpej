@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using mvcprj.model;
 
 namespace mvcprj.Services
@@ -14,18 +15,18 @@ namespace mvcprj.Services
             }
         };
 
-        public List<Character> AddCharacter(Character newCharacter)
+        public async Task<List<Character>> AddCharacter(Character newCharacter)
         {
             characters.Add(newCharacter);
             return characters;
         }
 
-        public Character Get(int id)
+        public async Task<Character> Get(int id)
         {
             return characters[id];
         }
 
-        public List<Character> GetAll()
+        public async Task<List<Character>> GetAll()
         {
             return characters;
         }
