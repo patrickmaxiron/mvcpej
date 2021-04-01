@@ -9,7 +9,7 @@ namespace mvcprj.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CharacterController: ControllerBase
+    public class CharacterController : ControllerBase
     {
         private readonly ICharacterService _characterService;
 
@@ -21,7 +21,7 @@ namespace mvcprj.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>>  Get(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Get(int id)
         {
             return Ok(await _characterService.Get(id));
         }
@@ -40,9 +40,16 @@ namespace mvcprj.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>>  Update(UpdateCharacterDto updateCharacterDto)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Update(UpdateCharacterDto updateCharacterDto)
         {
-            return Ok(await _characterService.Update(updateCharacterDto));
+            ServiceResponse<GetCharacterDto> serviceResponse = await _characterService.Update(updateCharacterDto);
+            if (serviceResponse.Success)
+            {
+                return Ok(serviceResponse);
+
+            }else{
+                return BadRequest(serviceResponse);
+            }
         }
 
     }
