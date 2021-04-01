@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using mvcprj.Services;
 
 namespace mvcprj
 {
@@ -32,6 +33,9 @@ namespace mvcprj
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "mvcprj", Version = "v1" });
             });
+
+            services.Add(new ServiceDescriptor(typeof(ICharacterService), new CharacterService()));   
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
