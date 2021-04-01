@@ -7,7 +7,7 @@ namespace mvcprj.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CharacterController
+    public class CharacterController: ControllerBase
     {
         private readonly ICharacterService _characterService;
 
@@ -19,22 +19,22 @@ namespace mvcprj.Controllers
 
 
         [HttpGet("{id}")]
-        public Character Get(int id)
+        public ActionResult<Character>  Get(int id)
         {
-            return _characterService.Get(id);
+            return Ok(_characterService.Get(id));
         }
 
         [HttpGet]
         [Route("getall")]
-        public List<Character> GetAll()
+        public ActionResult<List<Character>> GetAll()
         {
-            return _characterService.GetAll();
+            return Ok(_characterService.GetAll());
         }
 
         [HttpPost]
-        public List<Character> AddCharacter(Character newCharacter)
+        public ActionResult<List<Character>> AddCharacter(Character newCharacter)
         {
-            return _characterService.AddCharacter(newCharacter);
+            return Ok(_characterService.AddCharacter(newCharacter));
         }
 
     }
