@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using mvcprj.Services;
-
+using AutoMapper;
 namespace mvcprj
 {
     public class Startup
@@ -34,7 +34,8 @@ namespace mvcprj
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "mvcprj", Version = "v1" });
             });
 
-            services.Add(new ServiceDescriptor(typeof(ICharacterService), new CharacterService()));   
+            services.AddScoped<ICharacterService, CharacterService>();
+            services.AddAutoMapper(typeof(Startup));
             
         }
 

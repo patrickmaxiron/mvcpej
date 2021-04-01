@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using mvcprj.model;
 using mvcprj.Services;
+using mvcprj.model;
+using mvcprj.Dto.Character;
 
 namespace mvcprj.Controllers
 {
@@ -20,20 +21,20 @@ namespace mvcprj.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>>  Get(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>>  Get(int id)
         {
             return Ok(await _characterService.Get(id));
         }
 
         [HttpGet]
         [Route("getall")]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAll()
         {
             return Ok(await _characterService.GetAll());
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
         {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }

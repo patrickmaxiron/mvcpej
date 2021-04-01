@@ -1,6 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using mvcprj.Dto.Character;
 using mvcprj.model;
+
+
+//dto
+//linq
+//update
 
 namespace mvcprj.Services
 {
@@ -14,31 +22,46 @@ namespace mvcprj.Services
                 Name = "Patrick",
             }
         };
+        private readonly IMapper _mapper;
 
-        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter)
+        public CharacterService(IMapper mapper)
         {
-            ServiceResponse<List<Character>> serviceResponse = new ServiceResponse<List<Character>>();
+            _mapper = mapper;
 
-            characters.Add(newCharacter);
+        }
 
-            serviceResponse.Data = characters;
+        public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter)
+        {
+            ServiceResponse<List<GetCharacterDto>> serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
+
+            Character c = _mapper.Map<Character>(newCharacter);
+
+            int Id = characters.Max(c=>c.Id);
+
+            c.Id = Id;
+
+            characters.Add(c);
+
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Character>> Get(int id)
+        public async Task<ServiceResponse<GetCharacterDto>> Get(int Id)
         {
-            ServiceResponse<Character> serviceResponse = new ServiceResponse<Character>();
+            ServiceResponse<GetCharacterDto> serviceResponse = new ServiceResponse<GetCharacterDto>();
 
-            serviceResponse.Data = characters[id];
+            Character c = characters.FirstOrDefault(c => c.Id == Id);
+
+            serviceResponse.Data =  _mapper.Map<GetCharacterDto>(c);
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Character>>> GetAll()
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAll()
         {
-            ServiceResponse<List<Character>> serviceResponse = new ServiceResponse<List<Character>>();
+            ServiceResponse<List<GetCharacterDto>> serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
 
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
 
-            serviceResponse.Data = characters;
             return serviceResponse;
         }
     }
