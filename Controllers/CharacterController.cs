@@ -20,20 +20,20 @@ namespace mvcprj.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>>  Get(int id)
+        public async Task<ActionResult<ServiceResponse<Character>>>  Get(int id)
         {
             return Ok(await _characterService.Get(id));
         }
 
         [HttpGet]
         [Route("getall")]
-        public async Task<ActionResult<List<Character>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetAll()
         {
             return Ok(await _characterService.GetAll());
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
         {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }

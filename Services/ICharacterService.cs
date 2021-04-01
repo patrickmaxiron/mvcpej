@@ -6,11 +6,11 @@ namespace mvcprj.Services
 {
     public interface ICharacterService
     {
-        public  Task<Character> Get(int id);
+        public  Task<ServiceResponse<Character>> Get(int id);
 
 
-        public  Task<List<Character>> GetAll();
+        public  Task<ServiceResponse<List<Character>>> GetAll();
 
-        public  Task<List<Character>> AddCharacter(Character newCharacter);
+        public  Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter);
     }
 }

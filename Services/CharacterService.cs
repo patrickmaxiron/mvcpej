@@ -15,20 +15,31 @@ namespace mvcprj.Services
             }
         };
 
-        public async Task<List<Character>> AddCharacter(Character newCharacter)
+        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter)
         {
+            ServiceResponse<List<Character>> serviceResponse = new ServiceResponse<List<Character>>();
+
             characters.Add(newCharacter);
-            return characters;
+
+            serviceResponse.Data = characters;
+            return serviceResponse;
         }
 
-        public async Task<Character> Get(int id)
+        public async Task<ServiceResponse<Character>> Get(int id)
         {
-            return characters[id];
+            ServiceResponse<Character> serviceResponse = new ServiceResponse<Character>();
+
+            serviceResponse.Data = characters[id];
+            return serviceResponse;
         }
 
-        public async Task<List<Character>> GetAll()
+        public async Task<ServiceResponse<List<Character>>> GetAll()
         {
-            return characters;
+            ServiceResponse<List<Character>> serviceResponse = new ServiceResponse<List<Character>>();
+
+
+            serviceResponse.Data = characters;
+            return serviceResponse;
         }
     }
 }
